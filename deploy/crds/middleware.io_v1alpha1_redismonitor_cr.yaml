@@ -10,6 +10,6 @@ spec:
     accessKeyId: <aliyun ak>
     accessKeySecret: <aliyun ak sk>
     regionId: <region id>
-  #    extraMetric:
-  #    - getrange
-  #    - getset
+#    extraMetric:
+#    - getrange
+#    - getset
