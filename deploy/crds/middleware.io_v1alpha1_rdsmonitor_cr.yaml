@@ -1,0 +1,12 @@
+apiVersion: middleware.io/v1alpha1
+kind: RdsMonitor
+metadata:
+  name: rdsmonitor
+  namespace: ops-monitor
+spec:
+  # Add fields here
+  rdsAliyunAccount:
+  - name: <account name>
+    accessKeyId: <aliyun ak>
+    accessKeySecret: <aliyun ak sk>
+    regionId: <region id>

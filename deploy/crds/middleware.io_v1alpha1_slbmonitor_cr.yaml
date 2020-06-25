@@ -1,0 +1,12 @@
+apiVersion: middleware.io/v1alpha1
+kind: SlbMonitor
+metadata:
+  name: slbmonitor
+  namespace: ops-monitor
+spec:
+  # Add fields here
+  slbAliyunAccount:
+  - name: <account name>
+    accessKeyId: <aliyun ak>
+    accessKeySecret: <aliyun ak sk>
+    regionId: <region id>
