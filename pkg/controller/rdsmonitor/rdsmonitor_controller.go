@@ -159,7 +159,7 @@ func newDeployment(account middlewarev1alpha1.RdsAliyunAccount) *appsv1.Deployme
 	return &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      name,
-			Namespace: middlewarev1alpha1.RDS_EXPORTER_NAMESPACE,
+			Namespace: middlewarev1alpha1.RdsExporterNamespace,
 		},
 		Spec: appsv1.DeploymentSpec{
 			Replicas: &replicas,
@@ -171,13 +171,13 @@ func newDeployment(account middlewarev1alpha1.RdsAliyunAccount) *appsv1.Deployme
 					Labels: labels,
 					Annotations: map[string]string{
 						"prometheus.io/path":   "/metrics",
-						"prometheus.io/port":   strconv.Itoa(int(middlewarev1alpha1.RDS_EXPORTER_PORT)),
+						"prometheus.io/port":   strconv.Itoa(int(middlewarev1alpha1.RdsExporterPort)),
 						"prometheus.io/scrape": "true",
 					},
 				},
 				Spec: corev1.PodSpec{
 					Containers: []corev1.Container{{
-						Image:           middlewarev1alpha1.RDS_EXPORTER_IMAGE,
+						Image:           middlewarev1alpha1.RdsExporterImage,
 						Name:            name,
 						ImagePullPolicy: corev1.PullAlways,
 						Env: []corev1.EnvVar{
@@ -186,7 +186,7 @@ func newDeployment(account middlewarev1alpha1.RdsAliyunAccount) *appsv1.Deployme
 							{Name: "REGION_ID", Value: account.RegionId},
 						},
 						Ports: []corev1.ContainerPort{{
-							ContainerPort: middlewarev1alpha1.RDS_EXPORTER_PORT,
+							ContainerPort: middlewarev1alpha1.RdsExporterPort,
 							Name:          "rds-exporter",
 							Protocol:      corev1.ProtocolTCP,
 						}},
@@ -198,7 +198,7 @@ func newDeployment(account middlewarev1alpha1.RdsAliyunAccount) *appsv1.Deployme
 							TimeoutSeconds:      3,
 							Handler: corev1.Handler{
 								TCPSocket: &corev1.TCPSocketAction{
-									Port: intstr.FromInt(int(middlewarev1alpha1.RDS_EXPORTER_PORT)),
+									Port: intstr.FromInt(int(middlewarev1alpha1.RdsExporterPort)),
 								},
 							},
 						},
@@ -210,7 +210,7 @@ func newDeployment(account middlewarev1alpha1.RdsAliyunAccount) *appsv1.Deployme
 							TimeoutSeconds:      3,
 							Handler: corev1.Handler{
 								TCPSocket: &corev1.TCPSocketAction{
-									Port: intstr.FromInt(int(middlewarev1alpha1.RDS_EXPORTER_PORT)),
+									Port: intstr.FromInt(int(middlewarev1alpha1.RdsExporterPort)),
 								},
 							},
 						},

@@ -5,9 +5,9 @@ import (
 )
 
 const (
-	REDIS_EXPORTER_IMAGE     string = "riet/aliyun-redis-exporter"
-	REDIS_EXPORTER_NAMESPACE string = "ops-monitor"
-	REDIS_EXPORTER_PORT      int32  = 10003
+	RedisExporterImage     string = "riet/aliyun-redis-exporter"
+	RedisExporterNamespace string = "ops-monitor"
+	RedisExporterPort      int32  = 10003
 )
 
 type RedisAliyunAccount struct {

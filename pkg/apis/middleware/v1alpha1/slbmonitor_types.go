@@ -5,9 +5,9 @@ import (
 )
 
 const (
-	SLB_EXPORTER_IMAGE     string = "riet/aliyun-slb-exporter"
-	SLB_EXPORTER_NAMESPACE string = "ops-monitor"
-	SLB_EXPORTER_PORT      int32  = 10002
+	SlbExporterImage     string = "riet/aliyun-slb-exporter"
+	SlbExporterNamespace string = "ops-monitor"
+	SlbExporterPort      int32  = 10002
 )
 
 type SlbAliyunAccount struct {

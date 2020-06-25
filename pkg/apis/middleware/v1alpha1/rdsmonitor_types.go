@@ -5,9 +5,9 @@ import (
 )
 
 const (
-	RDS_EXPORTER_IMAGE     string = "riet/aliyun-rds-exporter"
-	RDS_EXPORTER_NAMESPACE string = "ops-monitor"
-	RDS_EXPORTER_PORT      int32  = 10001
+	RdsExporterImage     string = "riet/aliyun-rds-exporter"
+	RdsExporterNamespace string = "ops-monitor"
+	RdsExporterPort      int32  = 10001
 )
 
 type RdsAliyunAccount struct {

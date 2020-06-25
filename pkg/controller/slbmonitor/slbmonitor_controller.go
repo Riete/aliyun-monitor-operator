@@ -161,7 +161,7 @@ func newDeployment(account middlewarev1alpha1.SlbAliyunAccount) *appsv1.Deployme
 	return &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      name,
-			Namespace: middlewarev1alpha1.SLB_EXPORTER_NAMESPACE,
+			Namespace: middlewarev1alpha1.SlbExporterNamespace,
 		},
 		Spec: appsv1.DeploymentSpec{
 			Replicas: &replicas,
@@ -173,13 +173,13 @@ func newDeployment(account middlewarev1alpha1.SlbAliyunAccount) *appsv1.Deployme
 					Labels: labels,
 					Annotations: map[string]string{
 						"prometheus.io/path":   "/metrics",
-						"prometheus.io/port":   strconv.Itoa(int(middlewarev1alpha1.SLB_EXPORTER_PORT)),
+						"prometheus.io/port":   strconv.Itoa(int(middlewarev1alpha1.SlbExporterPort)),
 						"prometheus.io/scrape": "true",
 					},
 				},
 				Spec: corev1.PodSpec{
 					Containers: []corev1.Container{{
-						Image:           middlewarev1alpha1.SLB_EXPORTER_IMAGE,
+						Image:           middlewarev1alpha1.SlbExporterImage,
 						Name:            name,
 						ImagePullPolicy: corev1.PullAlways,
 						Env: []corev1.EnvVar{
@@ -189,7 +189,7 @@ func newDeployment(account middlewarev1alpha1.SlbAliyunAccount) *appsv1.Deployme
 							{Name: "INSTANCE_ID", Value: strings.Join(account.InstanceId, ",")},
 						},
 						Ports: []corev1.ContainerPort{{
-							ContainerPort: middlewarev1alpha1.SLB_EXPORTER_PORT,
+							ContainerPort: middlewarev1alpha1.SlbExporterPort,
 							Name:          "slb-exporter",
 							Protocol:      corev1.ProtocolTCP,
 						}},
@@ -201,7 +201,7 @@ func newDeployment(account middlewarev1alpha1.SlbAliyunAccount) *appsv1.Deployme
 							TimeoutSeconds:      3,
 							Handler: corev1.Handler{
 								TCPSocket: &corev1.TCPSocketAction{
-									Port: intstr.FromInt(int(middlewarev1alpha1.SLB_EXPORTER_PORT)),
+									Port: intstr.FromInt(int(middlewarev1alpha1.SlbExporterPort)),
 								},
 							},
 						},
@@ -213,7 +213,7 @@ func newDeployment(account middlewarev1alpha1.SlbAliyunAccount) *appsv1.Deployme
 							TimeoutSeconds:      3,
 							Handler: corev1.Handler{
 								TCPSocket: &corev1.TCPSocketAction{
-									Port: intstr.FromInt(int(middlewarev1alpha1.SLB_EXPORTER_PORT)),
+									Port: intstr.FromInt(int(middlewarev1alpha1.SlbExporterPort)),
 								},
 							},
 						},

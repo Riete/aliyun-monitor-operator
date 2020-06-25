@@ -160,7 +160,7 @@ func newDeployment(account middlewarev1alpha1.RedisAliyunAccount) *appsv1.Deploy
 	return &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      name,
-			Namespace: middlewarev1alpha1.REDIS_EXPORTER_NAMESPACE,
+			Namespace: middlewarev1alpha1.RedisExporterNamespace,
 		},
 		Spec: appsv1.DeploymentSpec{
 			Replicas: &replicas,
@@ -172,13 +172,13 @@ func newDeployment(account middlewarev1alpha1.RedisAliyunAccount) *appsv1.Deploy
 					Labels: labels,
 					Annotations: map[string]string{
 						"prometheus.io/path":   "/metrics",
-						"prometheus.io/port":   strconv.Itoa(int(middlewarev1alpha1.REDIS_EXPORTER_PORT)),
+						"prometheus.io/port":   strconv.Itoa(int(middlewarev1alpha1.RedisExporterPort)),
 						"prometheus.io/scrape": "true",
 					},
 				},
 				Spec: corev1.PodSpec{
 					Containers: []corev1.Container{{
-						Image:           middlewarev1alpha1.REDIS_EXPORTER_IMAGE,
+						Image:           middlewarev1alpha1.RedisExporterImage,
 						Name:            name,
 						ImagePullPolicy: corev1.PullAlways,
 						Env: []corev1.EnvVar{
@@ -188,7 +188,7 @@ func newDeployment(account middlewarev1alpha1.RedisAliyunAccount) *appsv1.Deploy
 							{Name: "EXTRA_METRIC", Value: strings.Join(account.ExtraMetric, ",")},
 						},
 						Ports: []corev1.ContainerPort{{
-							ContainerPort: middlewarev1alpha1.REDIS_EXPORTER_PORT,
+							ContainerPort: middlewarev1alpha1.RedisExporterPort,
 							Name:          "redis-exporter",
 							Protocol:      corev1.ProtocolTCP,
 						}},
@@ -200,7 +200,7 @@ func newDeployment(account middlewarev1alpha1.RedisAliyunAccount) *appsv1.Deploy
 							TimeoutSeconds:      3,
 							Handler: corev1.Handler{
 								TCPSocket: &corev1.TCPSocketAction{
-									Port: intstr.FromInt(int(middlewarev1alpha1.REDIS_EXPORTER_PORT)),
+									Port: intstr.FromInt(int(middlewarev1alpha1.RedisExporterPort)),
 								},
 							},
 						},
@@ -212,7 +212,7 @@ func newDeployment(account middlewarev1alpha1.RedisAliyunAccount) *appsv1.Deploy
 							TimeoutSeconds:      3,
 							Handler: corev1.Handler{
 								TCPSocket: &corev1.TCPSocketAction{
-									Port: intstr.FromInt(int(middlewarev1alpha1.REDIS_EXPORTER_PORT)),
+									Port: intstr.FromInt(int(middlewarev1alpha1.RedisExporterPort)),
 								},
 							},
 						},
